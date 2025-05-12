@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Hit Predictor</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #5b5b5b;
+            margin-top: 30px;
+            font-size: 36px;
+        }
+        form {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #007bff;
+        }
+        button {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .result h2 {
+            color: #007bff;
+        }
+        .result p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .result p span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Game Hit Predictor</h1>
+    <form action="/predict" method="POST">
+        <label for="game_name">Game Name:</label>
+        <input type="text" name="game_name" id="game_name" required><br><br>
+
+        <label for="platform">Platform:</label>
+        <input type="text" name="platform" id="platform" required><br><br>
+
+        <label for="year">Year:</label>
+        <input type="number" name="year" id="year" required><br><br>
+
+        <label for="genre">Genre:</label>
+        <input type="text" name="genre" id="genre" required><br><br>
+
+        <label for="publisher">Publisher:</label>
+        <input type="text" name="publisher" id="publisher" required><br><br>
+
+        <label for="na_sales">North America Sales:</label>
+        <input type="number" name="na_sales" id="na_sales" step="0.01" required><br><br>
+
+        <label for="eu_sales">Europe Sales:</label>
+        <input type="number" name="eu_sales" id="eu_sales" step="0.01" required><br><br>
+
+        <label for="jp_sales">Japan Sales:</label>
+        <input type="number" name="jp_sales" id="jp_sales" step="0.01" required><br><br>
+
+        <label for="other_sales">Other Sales:</label>
+        <input type="number" name="other_sales" id="other_sales" step="0.01" required><br><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction is not none %}
+    <div class="result">
+        <h2>Prediction: {{ prediction }}</h2>
+        <p>Probability of being a hit: <span>{{ probability }}</span></p>
+        <p>Implied Global Sales: <span>{{ global_sales }}</span></p>
+        <p>Recommended similar hit game: <span>{{ recommended_game }}</span></p>
+    </div>
+    {% endif %}
+</body>
+</html>
